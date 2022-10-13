@@ -29,3 +29,11 @@ class Structure():
         with open(f"./arquivos/{username}/links.txt", "a") as arq:
             for i in range(len(lista_de_links)):
                 arq.write(f"{username}{i} - {lista_de_links[i]}\n")
+
+    def criar_links_com_arquivo(self, username: str) -> list:
+        with open(f"./arquivos/{username}/links.txt", 'r') as arquivo:
+            return self.tratar_lista_gerada(arquivo.readlines())
+
+    def tratar_lista_gerada(self, lista: list):
+        lista_temp = [i.strip() for i in lista]
+        return [i.split(' - ')[1] for i in lista_temp]
