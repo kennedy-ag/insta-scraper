@@ -37,3 +37,13 @@ class Structure():
     def tratar_lista_gerada(self, lista: list):
         lista_temp = [i.strip() for i in lista]
         return [i.split(' - ')[1] for i in lista_temp]
+
+    def escrever_video(self, username: str, numero: int, views: int, likes: int):
+        with open(f"./arquivos/{username}/videos/{username}__{numero}.txt", 'a') as arquivo:
+            arquivo.write(f"{views}\n{likes}")
+
+    def escrever_comentarios(self, username: str, numero: int,  comentarios: list):
+        for i in range(len(comentarios)):
+            arquivo = open(f"./arquivos/{username}/comentarios/{username}__{numero}__{i}.txt", 'w', encoding="utf-8")
+            arquivo.write(comentarios[i])
+            arquivo.close()

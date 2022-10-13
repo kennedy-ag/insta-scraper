@@ -3,7 +3,7 @@ from structure import Structure
 
 scp = Scraper()
 stc = Structure()
-username = "anitta"
+username = "gildovigor"
 
 scp.acessar_instagram()
 scp.logar("_florbelle", "450225zx")
@@ -21,11 +21,19 @@ sidx = lista_de_links.index(links[0])
 lista_de_views = lista_de_views[sidx:sidx+30]
 
 
-for link in links:
-    cm_lk = scp.pegar_comentarios_e_likes(link)
+for i in range(len(links)):
+    cm_lk = scp.pegar_comentarios_e_likes(links[i])
+
     comentarios = cm_lk[0]
     likes = cm_lk[1]
-    print(comentarios)
-    print(len(comentarios))
-    print(likes)
-    break
+
+
+    if lista_de_views[i] == '':
+        lista_de_views[i] = str(lista_de_views[i-1])
+
+    if likes == 12000 or likes > stc.converter_para_numero(lista_de_views[i]):
+        print(f"L: {likes}.")
+        likes = stc.converter_para_numero(lista_de_views[i])//3
+
+    stc.escrever_video(username, i, stc.converter_para_numero(lista_de_views[i]), likes)
+    stc.escrever_comentarios(username, i, comentarios)

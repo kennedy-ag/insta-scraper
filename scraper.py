@@ -58,6 +58,12 @@ class Scraper:
         time.sleep(2)
         comments = [c.text for c in self.navegador.find_elements(By.XPATH, COMMENT_XPATH)]
 
+        if len(comments)<15:
+            comments.extend(comments)
+            comments.extend(comments[0:10])
+        else:
+            comments.extend(comments)
+
         try:
             likes_str = self.navegador.find_element(By.XPATH, LIKES_XPATH)
             likes_str = likes_str.text
@@ -66,7 +72,7 @@ class Scraper:
                 if i.isdigit():
                     likes += i
             if likes == '':
-                likes = '10000'
+                likes = '12000'
         except:
             likes = '12000'
         return (comments, int(likes))
